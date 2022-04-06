@@ -1,6 +1,6 @@
-const newsModel = require('../models/newsModel')
+const novelModel = require('../models/novelModel')
 
-async function getNewsList (request, reply) {
+async function getNovelList (request, reply) {
     var limit   = 20;
     var offset  = 0;
     var page    = 1;
@@ -19,22 +19,22 @@ async function getNewsList (request, reply) {
     }
 
     var queryParams = { offset: offset, limit: limit }
-    const newsData = await newsModel.newsList(queryParams);
+    const novelData = await novelModel.novelList(queryParams);
 
-    var response = {page: page, per_page: limit, data:newsData[0]}
+    var response = {page: page, per_page: limit, data:novelData[0]}
     return reply.status(200).send(response);
 }
 
-async function getNewsDetail (request, reply) {
-    const newsData = await newsModel.newsDetail(request.params.id);
-    if (newsData.length > 0) {
-        return reply.status(200).send({ data:newsData[0] });
+async function getNovelDetail (request, reply) {
+    const novelData = await novelModel.novelDetail(request.params.id);
+    if (novelData.length > 0) {
+        return reply.status(200).send({ data:novelData[0] });
     } else {
-        return reply.status(500).send({ error: "News Not found!"});
+        return reply.status(500).send({ error: "Novel Not found!"});
     }
 }
 
 module.exports = {
-    getNewsList,
-    getNewsDetail
+    getNovelList,
+    getNovelDetail
 };
