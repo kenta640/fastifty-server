@@ -1,5 +1,5 @@
-let user = require('../controllers/news');
-let novel = require('../controllers/news');
+let user = require('../controllers/user');
+let novel = require('../controllers/novel');
 
 async function routes (fastify, options) {
     fastify.get('/', function (request, reply) {
