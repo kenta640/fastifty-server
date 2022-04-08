@@ -7,8 +7,6 @@ async function routes (fastify, options) {
     })
     fastify.get('/user', user.getUserList);
     fastify.get('/user/:id', user.getUserDetail);
-    fastify.get('/novel', novel.getNovelList);
-    fastify.get('/novel/:id', novel.getNovelDetail);
 }
 
 module.exports = routes;
