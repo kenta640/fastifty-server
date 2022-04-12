@@ -1,5 +1,6 @@
 let user = require('../controllers/user');
 let novel = require('../controllers/novel');
+let episode = require("../controllers/episode")
 
 async function routes (fastify, options) {
     fastify.get('/', function (request, reply) {
@@ -9,6 +10,8 @@ async function routes (fastify, options) {
     fastify.get('/user/:id', user.getUserDetail);
     fastify.get('/novel', novel.getNovelList);
     fastify.get('/novel/:id', novel.getNovelDetail);
+    fastify.get('/episode', episode.getEpisodeList);
+    fastify.get('/episode/:id', episode.getEpisodeDetail);
 }
 
 module.exports = routes;
