@@ -25,6 +25,32 @@ async function getNovelList (request, reply) {
     return reply.status(200).send(response);
 }
 
+async function getNovelListByUserId (request, reply) {
+  var limit   = 20;
+  var offset  = 0;
+  var page    = 1;
+  
+  if (typeof request.query.limit !== "undefined") {
+    if (parseInt(request.query.limit) > 0) {
+      limit = parseInt(request.query.limit);
+    }
+  }
+
+  if (typeof request.query.page !== "undefined") {
+    if (parseInt(request.query.page) > 0) {
+      page = parseInt(request.query.page);
+      offset = (page-1)*limit
+    }
+  }
+
+  var queryParams = { offset: offset, limit: limit }
+  const novelData = await novelModel.novelList(queryParams);
+
+  var response = {user_id: request.params.user_id ,page: page, per_page: limit, data:novelData[0]}
+  return reply.status(200).send(response);
+}
+
+
 async function getNovelDetail (request, reply) {
     const novelData = await novelModel.novelDetail(request.params.id);
     if (novelData.length > 0) {
@@ -36,5 +62,6 @@ async function getNovelDetail (request, reply) {
 
 module.exports = {
     getNovelList,
-    getNovelDetail
+    getNovelDetail,
+    getNovelListByUserId
 };

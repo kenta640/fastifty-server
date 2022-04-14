@@ -25,6 +25,31 @@ async function getEpisodeList (request, reply) {
     return reply.status(200).send(response);
 }
 
+async function getEpisodeListByNovelId (request, reply) {
+  var limit   = 20;
+  var offset  = 0;
+  var page    = 1;
+  
+  if (typeof request.query.limit !== "undefined") {
+    if (parseInt(request.query.limit) > 0) {
+      limit = parseInt(request.query.limit);
+    }
+  }
+
+  if (typeof request.query.page !== "undefined") {
+    if (parseInt(request.query.page) > 0) {
+      page = parseInt(request.query.page);
+      offset = (page-1)*limit
+    }
+  }
+
+  var queryParams = { novel_id: request.params.novel_id, offset: offset, limit: limit }
+  const episodeData = await episodeModel.episodeListByNovelId(queryParams);
+
+  var response = {page: page, per_page: limit, data:episodeData[0]}
+  return reply.status(200).send(response);
+}
+
 async function getEpisodeDetail (request, reply) {
     const episodeData = await episodeModel.episodeDetail(request.params.id);
     if (episodeData.length > 0) {
@@ -36,5 +61,6 @@ async function getEpisodeDetail (request, reply) {
 
 module.exports = {
     getEpisodeList,
+    getEpisodeListByNovelId,
     getEpisodeDetail
 };
