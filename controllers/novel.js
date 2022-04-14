@@ -43,10 +43,10 @@ async function getNovelListByUserId (request, reply) {
     }
   }
 
-  var queryParams = { offset: offset, limit: limit }
-  const novelData = await novelModel.novelList(queryParams);
+  var queryParams = { user_id: request.params.user_id, offset: offset, limit: limit }
+  const novelData = await novelModel.novelListByUserId(queryParams);
 
-  var response = {user_id: request.params.user_id ,page: page, per_page: limit, data:novelData[0]}
+  var response = { page: page, per_page: limit, data:novelData[0]}
   return reply.status(200).send(response);
 }
 
