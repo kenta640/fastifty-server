@@ -1,7 +1,7 @@
 const mysqlPromise = require('../config/database');
 
 const userModel = {
-    userList: async function(params) {
+  userList: async function(params) {
     const connection = await mysqlPromise.DATABASE.getConnection();
     var res = [{}];
 

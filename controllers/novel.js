@@ -1,5 +1,14 @@
 const novelModel = require('../models/novelModel')
 
+async function addNovel (request, reply) {
+  const novelData = await novelModel.addNovel(request.params);
+  if (novelData.length > 0) {
+      return reply.status(200).send({ data:novelData[0] });
+  } else {
+      return reply.status(500).send({ error: "Novel Not found!"});
+  }
+}
+
 async function getNovelList (request, reply) {
     var limit   = 20;
     var offset  = 0;
@@ -61,6 +70,7 @@ async function getNovelDetail (request, reply) {
 }
 
 module.exports = {
+    addNovel,
     getNovelList,
     getNovelDetail,
     getNovelListByUserId
