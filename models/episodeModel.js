@@ -1,6 +1,22 @@
 const mysqlPromise = require('../config/database');
 
 const episodeModel = {
+  addEpisode: async function (params) {
+    
+    const connection = await mysqlPromise.DATABASE.getConnection();
+    var res=[{}]
+    try {
+      await connection.execute(
+        `INSERT INTO episode (episode_title, novel_id) 
+         VALUES(?,?)`, [params.episode_title, params.novel_id])
+      connection.release()
+    } catch (err) {
+      connection.error(err);
+      connection.release();
+      return false
+    }
+    return res.length > 0 ? res: null;
+  },
  episodeList: async function(params) {
     const connection = await mysqlPromise.DATABASE.getConnection();
     var res = [{}];

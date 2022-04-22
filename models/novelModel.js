@@ -2,10 +2,14 @@ const mysqlPromise = require('../config/database');
 
 const novelModel = {
     addNovel: async function (params) {
+      
       const connection = await mysqlPromise.DATABASE.getConnection();
       var res=[{}]
+      var age_restriction = "All"
       try {
-        res = await connection.execute(`INSERT INTO novel (title, user_id, age_restriction) VALUES(${params.title},${params.user_id},${"All"})`)
+        await connection.execute(
+          `INSERT INTO novel (title, user_id, age_restriction) 
+           VALUES(?,?,?)`, [params.title, params.user_id, age_restriction])
         connection.release()
       } catch (err) {
         connection.error(err);

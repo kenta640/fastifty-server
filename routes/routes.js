@@ -14,8 +14,11 @@ async function routes (fastify, options) {
     fastify.get('/episode', episode.getEpisodeList);
     fastify.get('/episodeByNovel/:novel_id', episode.getEpisodeListByNovelId)
     fastify.get('/episode/:id', episode.getEpisodeDetail);
+    fastify.get('/text', text.getTextList);
     fastify.get('/text/:episode_id', text.getText);
-    fastify.post('/addNovel', novel.addNovel)
+    fastify.post('/addNovel', novel.addNovel);
+    fastify.post('/addEpisode', episode.addEpisode);
+    fastify.post('/addText', text.addText);
 }
 
 module.exports = routes;

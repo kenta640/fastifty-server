@@ -1,0 +1,17 @@
+POST http://localhost:3000/addText HTTP/1.1
+content-type: application/json
+
+{
+    "text": "New text Posted By text.http",
+    "episode_id": 24
+}
+
+###
+
+POST http://localhost:3000/addEpisode HTTP/1.1
+content-type: application/json
+
+{
+    "episode_title": "New Episode PekoPeko",
+    "novel_id": 14
+}

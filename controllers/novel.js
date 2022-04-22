@@ -1,12 +1,11 @@
 const novelModel = require('../models/novelModel')
 
 async function addNovel (request, reply) {
-  const novelData = await novelModel.addNovel(request.params);
-  if (novelData.length > 0) {
-      return reply.status(200).send({ data:novelData[0] });
-  } else {
-      return reply.status(500).send({ error: "Novel Not found!"});
-  }
+  const { title, user_id } = request.body;
+  queryParams = { title: title, user_id: user_id };
+  const novelData = await novelModel.addNovel(queryParams);
+  var response = {data:novelData[0]}
+  reply.status(200).send(response);
 }
 
 async function getNovelList (request, reply) {

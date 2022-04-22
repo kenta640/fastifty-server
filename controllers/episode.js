@@ -1,4 +1,11 @@
 const episodeModel = require('../models/episodeModel')
+async function addEpisode (request, reply) {
+  const { episode_title, novel_id } = request.body;
+  queryParams = { episode_title: episode_title, novel_id: novel_id };
+  const novelData = await episodeModel.addEpisode(queryParams);
+  var response = {data:novelData[0]}
+  reply.status(200).send(response);
+}
 
 async function getEpisodeList (request, reply) {
     var limit   = 20;
@@ -60,6 +67,7 @@ async function getEpisodeDetail (request, reply) {
 }
 
 module.exports = {
+    addEpisode,
     getEpisodeList,
     getEpisodeListByNovelId,
     getEpisodeDetail
