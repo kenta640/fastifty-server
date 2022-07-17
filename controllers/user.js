@@ -34,7 +34,17 @@ async function getUserDetail (request, reply) {
     }
 }
 
+async function addUser (request, reply) {
+  const { name, email, role} = request.body;
+  queryParams = { name: name, email: email, role: role};
+  const novelData = await userModel.addUser(queryParams);
+  var response = {data:novelData[0]}
+  reply.status(200).send(response);
+}
+
+
 module.exports = {
     getUserList,
-    getUserDetail
+    getUserDetail,
+    addUser
 };

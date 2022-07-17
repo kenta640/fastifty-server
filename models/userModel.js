@@ -31,6 +31,27 @@ const userModel = {
     }
     return res.length > 0 ? res[0] : null;
   },
+  addUser: async function (params) {
+      
+    const connection = await mysqlPromise.DATABASE.getConnection();
+    var res=[{}]
+    
+    try {
+      //const token = await connection.execute("SELECT email FROM user WHERE " + params.email)
+      //if(token=== null){
+        await connection.execute(
+          `INSERT INTO user (name, email, role) 
+           VALUES(?,?,?)`, [params.name, params.email, params.role])
+      //}
+
+      connection.release()
+    } catch (err) {
+      connection.error(err);
+      connection.release();
+      return false
+    }
+    return res.length > 0 ? res: null;
+  },
 }
 
 module.exports = userModel;

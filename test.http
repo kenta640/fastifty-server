@@ -1,4 +1,38 @@
-POST http://localhost:3000/addText HTTP/1.1
+POST http://localhost:3000/addUser HTTP/1.1
+content-type: application/json
+
+{
+    "name": "example",
+    "email": "example@example.com",
+    "role": "user"
+}
+###
+
+GET http://localhost:3000/user HTTP/1.1
+content-type: application/json
+
+
+
+###
+GET https://fastify-server-app.herokuapp.com/novel HTTP/1.1
+content-type: application/json
+
+###
+
+POST https://fastify-server-app.herokuapp.com/addNovel  HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Another title Posted By text.http",
+    "user_id": 24,
+    "summary": "Summary of the Novel",
+    "age_restriction": "All"
+}
+
+
+###
+
+POST https://fastify-server-app.herokuapp.com/novel  HTTP/1.1
 content-type: application/json
 
 {
