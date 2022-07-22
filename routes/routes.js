@@ -19,7 +19,7 @@ async function routes (fastify, options) {
     fastify.post('/addNovel', novel.addNovel);
     fastify.post('/addEpisode', episode.addEpisode);
     fastify.post('/addText', text.addText);
-    fastify.post('/addUser', user.addUser)
+    fastify.post('/registerUser', user.registerUser)
 }
 
 module.exports = routes;

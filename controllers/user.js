@@ -34,10 +34,10 @@ async function getUserDetail (request, reply) {
     }
 }
 
-async function addUser (request, reply) {
+async function registerUser (request, reply) {
   const { name, email, role} = request.body;
   queryParams = { name: name, email: email, role: role};
-  const novelData = await userModel.addUser(queryParams);
+  const novelData = await userModel.registerUser(queryParams);
   var response = {data:novelData[0]}
   reply.status(200).send(response);
 }
@@ -46,5 +46,5 @@ async function addUser (request, reply) {
 module.exports = {
     getUserList,
     getUserDetail,
-    addUser
+    registerUser
 };

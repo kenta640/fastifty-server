@@ -31,18 +31,23 @@ const userModel = {
     }
     return res.length > 0 ? res[0] : null;
   },
-  addUser: async function (params) {
-      
-    const connection = await mysqlPromise.DATABASE.getConnection();
-    var res=[{}]
+  registerUser: async function (params) {
     
+    const uniqueEmail = params.email
+    
+    const connection = await mysqlPromise.DATABASE.getConnection();
+    const tempuser = await connection.execute(`SELECT * FROM user WHERE email = ?`, [params.email])
+    console.log(tempuser[0].length==0)
+    if (tempuser[0].length>0) throw new Error('This username is not valid!');
+    var res=[{}]
+    var age_restriction = "All"
     try {
-      //const token = await connection.execute("SELECT email FROM user WHERE " + params.email)
-      //if(token=== null){
+      //console.log(emptyArray[0][0])
+      if(tempuser[0].length==0){
         await connection.execute(
-          `INSERT INTO user (name, email, role) 
-           VALUES(?,?,?)`, [params.name, params.email, params.role])
-      //}
+          `INSERT INTO user (name, email) 
+           VALUES(?,?)`, [params.name, params.email])
+      }
 
       connection.release()
     } catch (err) {
