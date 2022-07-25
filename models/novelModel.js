@@ -33,6 +33,7 @@ const novelModel = {
     }
     return res.length > 0 ? res : null;
   },
+
   novelListByUserId: async function(params) {
     const connection = await mysqlPromise.DATABASE.getConnection();
     var res = [{}];
