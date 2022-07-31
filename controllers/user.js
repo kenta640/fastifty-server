@@ -25,6 +25,15 @@ async function getUserList (request, reply) {
     return reply.status(200).send(response);
 }
 
+async function getUserDetailByEmail (request, reply) {
+  const userData = await userModel.userDetail(request.params.email);
+  if (userData.length > 0) {
+      return reply.status(200).send({ data:userData[0] });
+  } else {
+      return reply.status(500).send({ error: "User Not found!"});
+  }
+}
+
 async function getUserDetail (request, reply) {
     const userData = await userModel.userDetail(request.params.id);
     if (userData.length > 0) {
@@ -46,5 +55,6 @@ async function registerUser (request, reply) {
 module.exports = {
     getUserList,
     getUserDetail,
-    registerUser
+    registerUser,
+    getUserDetailByEmail
 };

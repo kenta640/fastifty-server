@@ -33,6 +33,31 @@ async function getNovelList (request, reply) {
     return reply.status(200).send(response);
 }
 
+async function getNovelListByUserEmail (request, reply) {
+  var limit   = 20;
+  var offset  = 0;
+  var page    = 1;
+  
+  if (typeof request.query.limit !== "undefined") {
+    if (parseInt(request.query.limit) > 0) {
+      limit = parseInt(request.query.limit);
+    }
+  }
+
+  if (typeof request.query.page !== "undefined") {
+    if (parseInt(request.query.page) > 0) {
+      page = parseInt(request.query.page);
+      offset = (page-1)*limit
+    }
+  }
+
+  var queryParams = { email: request.params.email, offset: offset, limit: limit }
+  const novelData = await novelModel.novelListByUserEmail(queryParams);
+
+  var response = { page: page, per_page: limit, data:novelData[0]}
+  return reply.status(200).send(response);
+}
+
 async function getNovelListByUserId (request, reply) {
   var limit   = 20;
   var offset  = 0;
@@ -72,5 +97,6 @@ module.exports = {
     addNovel,
     getNovelList,
     getNovelDetail,
-    getNovelListByUserId
+    getNovelListByUserId,
+    getNovelListByUserEmail
 };

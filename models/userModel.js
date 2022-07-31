@@ -16,6 +16,21 @@ const userModel = {
     }
     return res.length > 0 ? res : null;
   },
+  userDetailByEmail: async function(email){
+    const connection = await mysqlPromise.DATABASE.getConnection();
+    var res = [{}];
+
+    try {
+      res = await connection.execute(`SELECT * FROM user WHERE email = ?`, [email]);
+      connection.release();
+    }
+    catch (err) {
+      console.error(err)
+      connection.release();
+      return false
+    }
+    return res.length > 0 ? res[0] : null;
+  },
   userDetail: async function(id) {
     const connection = await mysqlPromise.DATABASE.getConnection();
     var res = [{}];
