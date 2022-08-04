@@ -26,7 +26,8 @@ async function getUserList (request, reply) {
 }
 
 async function getUserDetailByEmail (request, reply) {
-  const userData = await userModel.userDetail(request.params.email);
+  const userData = await userModel.userDetailByEmail(request.params.email);
+  console.log(request.params.email)
   if (userData.length > 0) {
       return reply.status(200).send({ data:userData[0] });
   } else {
