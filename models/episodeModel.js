@@ -5,13 +5,16 @@ const episodeModel = {
     
     const connection = await mysqlPromise.DATABASE.getConnection();
     var res=[{}]
+    
     try {
+      
       await connection.execute(
         `INSERT INTO episode (episode_title, novel_id) 
          VALUES(?,?)`, [params.episode_title, params.novel_id])
       connection.release()
     } catch (err) {
-      connection.error(err);
+      //console.log("Error")
+      connection.error(err.message);
       connection.release();
       return false
     }

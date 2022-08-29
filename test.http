@@ -8,7 +8,7 @@ content-type: application/json
 }
 ###
 
-GET http://localhost:3000/user HTTP/1.1
+GET http://localhost:3000/episodeByNovel/364 HTTP/1.1
 
 
 
@@ -28,6 +28,15 @@ content-type: application/json
     "age_restriction": "All"
 }
 
+###
+
+POST http://localhost:3000/addEpisode  HTTP/1.1
+content-type: application/json
+
+{
+    "episode_title": "Episode title Posted By text.http",
+    "novel_id": 94
+}
 
 ###
 

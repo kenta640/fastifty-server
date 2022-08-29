@@ -5,6 +5,8 @@ const cors = require('fastify-cors')
 
 fastify
 .register(routes)
-.register(cors);
+.register(cors, {
+    origin: true
+});
 
 module.exports = fastify
